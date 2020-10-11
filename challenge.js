@@ -33,20 +33,11 @@ const getRndInteger = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
 
-const generateCat = (e) => {
-    const target = e.target;
-        while(catsContainer.firstChild){
-            catsContainer.removeChild(catsContainer.firstChild);
-        }
-    if (target.matches("button")) {
-        for (let i = 0; i < 6; i++) {
-            var newImg = new Image (240,200)
-            newImg.classList.add("cat-image")
-            newImg.src = "http://theoldreader.com/kittens/"
-            +getRndInteger(500,600)+"/"+getRndInteger(500,600)+""
-            catsContainer.appendChild(newImg); 
-        }
-    }
+const generateCat = () => {
+    const images = document.querySelectorAll(".cat-image")
+    images.forEach(function(image) {
+      image.src = "http://theoldreader.com/kittens/"+getRndInteger(500,600)+"/"+getRndInteger(500,600)+""
+    })
 }
 
 ageInput.addEventListener("change", readAgeInput);
