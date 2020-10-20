@@ -66,6 +66,19 @@ html {
     box-shadow: 2px 2px 37px 22px rgba(22,161,9,1);
     cursor: pointer;
 }
-.rps-score {
+#rps-score {
+    align-self: center;
+    font-size: 5rem;
     display: none;
+}
+.winner {
+    color: green;
+}
+
+.loser {
+    color: red;
+}
+
+.tied {
+    color: yellow;
 }
