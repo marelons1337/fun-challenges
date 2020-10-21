@@ -45,24 +45,43 @@ const generateCat = () => {
 }
 
 const startGame = (e) => {
+    // setting styles for 3 different scenarios
     paper.style.display = "none";
-    rpsResultBox.style.display ="inline"
+    rpsResultBox.style.display ="inline";
+
     const winningClick = () => {
-        rpsResultBox.innerHTML = "You Win!";
         rpsResultBox.className = '';
+        rpsResultBox.innerHTML = "You Win!";
         rpsResultBox.className = "winner";
+        scissors.style = "box-shadow: 2px 2px 37px 22px rgb(255, 0, 0)"
+        rock.style = "box-shadow: 2px 2px 37px 22px rgba(22,161,9,1)"
     }
     const losingClick = () => {
-        rpsResultBox.innerHTML= "You Lose!";
         rpsResultBox.className = '';
+        rpsResultBox.innerHTML = "You Lose!";
         rpsResultBox.className = "loser";
+        scissors.style = "box-shadow: 2px 2px 37px 22px rgba(22,161,9,1)"
+        rock.style = "box-shadow: 2px 2px 37px 22px rgb(255, 0, 0)"
     }
     const tiedClick = () => {
-        rpsResultBox.innerHTML = "You tied!";
         rpsResultBox.className = '';
+        rpsResultBox.innerHTML = "You tied!";
         rpsResultBox.className = "tied";
+        scissors.style = "box-shadow: 2px 2px 37px 22px rgb(255, 165, 0)"
+        rock.style = "box-shadow: 2px 2px 37px 22px rgb(255, 165, 0)"
     }
-    const scoreRandomizer = () => {
+    const enemyPaper = () => {
+        scissors.src = "paper.jpg";
+    }
+    const enemyRock = () => {
+        scissors.src = "rock.jpg";
+    }
+    const enemyScissors = () => {
+        scissors.src = "scissors.jpg";
+    }
+
+    // randomizing enemy score
+    const resultRandomizer = () => {
         const randomScore = getRndInteger(1,3);
         switch (randomScore) {
             case 1:
@@ -80,40 +99,73 @@ const startGame = (e) => {
                 break;
         }
     }
-    const score = scoreRandomizer();
-    console.log(score);
+    const result = resultRandomizer();
+    console.log(result);
     if(e.target.matches("#rock-image")){
+        rock.src = "rock.jpg";
         console.log("rock");
-        if (score=="rock"){
+        if (result=="rock"){
             console.log("you tied");
             tiedClick();
+            enemyRock();
         }
-        else if (score=="paper"){
+        else if (result=="paper"){
             console.log("you lost");
             losingClick();
+            enemyPaper();
         }
         else {
             console.log("you win");
             winningClick();
+            enemyScissors();
         }
     }
     else if (e.target.matches("#scissors-image")){
+        rock.src = "scissors.jpg";
         console.log("scissors");
-        if (score=="rock")
+        if (result=="rock"){
             console.log("you lost");
-        else if (score=="paper")
+            losingClick();
+            enemyRock();
+        }
+        else if (result=="paper"){
             console.log("you win");
-        else console.log("you tied");
+            winningClick();
+            enemyPaper();
+        }
+        else {
+            console.log("you tied");
+            tiedClick();
+            enemyScissors();
+        }
     }
     else if(e.target.matches("#paper-image")){
+        rock.src = "paper.jpg";
         console.log("paper");
-        if (score=="rock")
+        if (result=="rock"){
             console.log("you win");
-        else if (score=="paper")
+            winningClick();
+            enemyRock();
+        }
+        else if (result=="paper"){
             console.log("you tied");
-        else console.log("you lost");
+            tiedClick();
+            enemyPaper();
+        }
+        else { console.log("you lost");
+            losingClick();
+            enemyScissors();
+        }
     }
 
+}
+const resetGame = () => {
+    rpsResultBox.style.display = "none"
+    paper.style.display = "inline"
+    scissors.className = "rps-element"
+    scissors.src = "scissors.jpg"
+    rock.className = "rps-element"
+    rock.src = "rock.jpg"
 }
 
 ageInput.addEventListener("change", readAgeInput);

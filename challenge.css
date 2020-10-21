@@ -58,9 +58,10 @@ html {
 
 /* rock paper scissors */
 
-.rps-element {
+.rps-body img {
     margin-top: 50px;
-    max-width: 200px;
+    width: 200px;
+    height: 200px;
 }
 .rps-element:hover {
     box-shadow: 2px 2px 37px 22px rgba(22,161,9,1);
