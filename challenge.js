@@ -4,9 +4,9 @@ const ageInput = document.getElementById("age-input-box");
 const resultBox = document.getElementById("age-result");
 const catButton = document.getElementById("cats-button")
 const catsContainer = document.getElementById("cats-container")
-const rock = document.getElementById("rock-image")
-const paper = document.getElementById("paper-image")
-const scissors = document.getElementById("scissors-image")
+const rock = document.getElementById("rock")
+const paper = document.getElementById("paper")
+const scissors = document.getElementById("scissors")
 const rpsResultBox = document.getElementById("rps-score")
 // Date input
 
@@ -44,137 +44,58 @@ const generateCat = () => {
     })
 }
 
-const startGame = (e) => {
-    // setting styles for 3 different scenarios
-    paper.style.display = "none";
-    rpsResultBox.style.display ="inline";
-
-    const winningClick = () => {
-        rpsResultBox.className = '';
-        rpsResultBox.innerHTML = "You Win!";
-        rpsResultBox.className = "winner";
-        scissors.style = "box-shadow: 2px 2px 37px 22px rgb(255, 0, 0)"
-        rock.style = "box-shadow: 2px 2px 37px 22px rgba(22,161,9,1)"
+function startGame(yourChoice) {
+    var humanChoice = yourChoice.id;
+    var botChoice = resultRandomizer(getRndInteger(0, 2));
+    results = decideWinner(humanChoice, botChoice);
+    message = finalMessage(results);
+    function resultRandomizer(number) {
+        return ['rock', 'paper', 'scissors'][number];
     }
-    const losingClick = () => {
-        rpsResultBox.className = '';
-        rpsResultBox.innerHTML = "You Lose!";
-        rpsResultBox.className = "loser";
-        scissors.style = "box-shadow: 2px 2px 37px 22px rgba(22,161,9,1)"
-        rock.style = "box-shadow: 2px 2px 37px 22px rgb(255, 0, 0)"
-    }
-    const tiedClick = () => {
-        rpsResultBox.className = '';
-        rpsResultBox.innerHTML = "You tied!";
-        rpsResultBox.className = "tied";
-        scissors.style = "box-shadow: 2px 2px 37px 22px rgb(255, 165, 0)"
-        rock.style = "box-shadow: 2px 2px 37px 22px rgb(255, 165, 0)"
-    }
-    const enemyPaper = () => {
-        scissors.src = "paper.jpg";
-    }
-    const enemyRock = () => {
-        scissors.src = "rock.jpg";
-    }
-    const enemyScissors = () => {
-        scissors.src = "scissors.jpg";
-    }
-
-    // randomizing enemy score
-    const resultRandomizer = () => {
-        const randomScore = getRndInteger(1,3);
-        switch (randomScore) {
-            case 1:
-                return "rock";
-                break;
-            case 2:
-                return "paper";
-                break;
-            case 3:
-                return "scissors";
-                break;
-        
-            default:
-                console.log("error");
-                break;
-        }
-    }
-    const result = resultRandomizer();
-    console.log(result);
-    if(e.target.matches("#rock-image")){
-        rock.src = "rock.jpg";
-        console.log("rock");
-        if (result=="rock"){
-            console.log("you tied");
-            tiedClick();
-            enemyRock();
-        }
-        else if (result=="paper"){
-            console.log("you lost");
-            losingClick();
-            enemyPaper();
-        }
-        else {
-            console.log("you win");
-            winningClick();
-            enemyScissors();
-        }
-    }
-    else if (e.target.matches("#scissors-image")){
-        rock.src = "scissors.jpg";
-        console.log("scissors");
-        if (result=="rock"){
-            console.log("you lost");
-            losingClick();
-            enemyRock();
-        }
-        else if (result=="paper"){
-            console.log("you win");
-            winningClick();
-            enemyPaper();
-        }
-        else {
-            console.log("you tied");
-            tiedClick();
-            enemyScissors();
-        }
-    }
-    else if(e.target.matches("#paper-image")){
-        rock.src = "paper.jpg";
-        console.log("paper");
-        if (result=="rock"){
-            console.log("you win");
-            winningClick();
-            enemyRock();
-        }
-        else if (result=="paper"){
-            console.log("you tied");
-            tiedClick();
-            enemyPaper();
-        }
-        else { console.log("you lost");
-            losingClick();
-            enemyScissors();
-        }
-    }
+    console.log('computer choice ', botChoice);
+    console.log(results);
+    console.log(message);
+    rpsFrontEnd(humanChoice, botChoice, message);
 
 }
-const resetGame = () => {
-    rpsResultBox.style.display = "none"
-    paper.style.display = "inline"
-    scissors.className = "rps-element"
-    scissors.src = "scissors.jpg"
-    rock.className = "rps-element"
-    rock.src = "rock.jpg"
+function decideWinner(yourChoice, botChoice) {
+    var rpsDatabase = {
+        'rock': { 'scissors': 1, 'rock': 0.5, 'paper': 0 },
+        'scissors': { 'paper': 1, 'scissors': 0.5, 'rock': 0 },
+        'paper': { 'rock': 1, 'paper': 0.5, 'scissors': 0 }
+    };
+    var yourScore = rpsDatabase[yourChoice][botChoice];
+    var computerScore = rpsDatabase[botChoice][yourChoice];
+
+    return [yourScore, computerScore];
+}
+function finalMessage({yourScore, computerScore}) {
+    if(yourScore === 0) {
+        return {'message': 'You lost!', 'color': 'red'};
+    } else if(yourScore === 0.5) {
+        return {'message': 'You tied!', 'color': 'yellow'}
+    }
+    else{
+        return {'message': 'You won!', 'color': 'green'}
+    }
+    
+}
+function rpsFrontEnd(humanImageChoice, botImageChoice, finalMessage) {
+    var imagesDataBase = {
+        'rock': rock.src,
+        'paper': paper.src,
+        'scissors': scissors.src
+    }
+
+    rock.remove();
+    paper.remove();
+    scissors.remove();
+
 }
 
 ageInput.addEventListener("change", readAgeInput);
 ageButton.addEventListener("click", calculateAge);
 resetButton.addEventListener("click", resetAge);
 catButton.addEventListener("click", generateCat);
-rock.addEventListener("click", startGame);
-paper.addEventListener("click", startGame);
-scissors.addEventListener("click", startGame);
-
 
 

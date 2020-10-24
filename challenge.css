@@ -57,6 +57,9 @@ html {
   }
 
 /* rock paper scissors */
+.rps-body {
+    margin-bottom: 100px;
+}
 
 .rps-body img {
     margin-top: 50px;
