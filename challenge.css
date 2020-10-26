@@ -35,7 +35,7 @@ html {
 }
 /* cats */
 #cats-container,
-.rps-body {
+#rps-body {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -57,11 +57,11 @@ html {
   }
 
 /* rock paper scissors */
-.rps-body {
+#rps-body {
     margin-bottom: 100px;
 }
 
-.rps-body img {
+#rps-body img {
     margin-top: 50px;
     width: 200px;
     height: 200px;

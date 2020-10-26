@@ -7,7 +7,7 @@ const catsContainer = document.getElementById("cats-container")
 const rock = document.getElementById("rock")
 const paper = document.getElementById("paper")
 const scissors = document.getElementById("scissors")
-const rpsResultBox = document.getElementById("rps-score")
+const rpsBox = document.getElementById("rps-body")
 // Date input
 
 var input;
@@ -49,14 +49,16 @@ function startGame(yourChoice) {
     var botChoice = resultRandomizer(getRndInteger(0, 2));
     results = decideWinner(humanChoice, botChoice);
     message = finalMessage(results);
-    function resultRandomizer(number) {
-        return ['rock', 'paper', 'scissors'][number];
-    }
+
     console.log('computer choice ', botChoice);
     console.log(results);
     console.log(message);
     rpsFrontEnd(humanChoice, botChoice, message);
 
+}
+
+function resultRandomizer(number) {
+    return ['rock', 'paper', 'scissors'][number];
 }
 function decideWinner(yourChoice, botChoice) {
     var rpsDatabase = {
@@ -86,11 +88,21 @@ function rpsFrontEnd(humanImageChoice, botImageChoice, finalMessage) {
         'paper': paper.src,
         'scissors': scissors.src
     }
-
     rock.remove();
     paper.remove();
     scissors.remove();
+    
+    var humanDiv = document.createElement('div');
+    var botDiv = document.createElement('div');
+    var messageDiv = document.createElement('div');
 
+    humanDiv.innerHTML = "<img src='"+ imagesDataBase[humanImageChoice] + "'height=150px width=150px style='box-shadow: 2px 2px 37px 22px rgba(22,161,9,1);'>"
+    messageDiv.innerHTML= "<h1 style='color: " + finalMessage['color'] + "; font-size: 3rem; padding: 30px; '>" + finalMessage['message'] + "</h1>"
+    botDiv.innerHTML = "<img src='"+ imagesDataBase[botImageChoice] + "' height=150px width=150px style='box-shadow: 2px 2px 37px 22px rgb(243, 6, 6);'>"
+    
+    rpsBox.appendChild(humanDiv);
+    rpsBox.appendChild(messageDiv);
+    rpsBox.appendChild(botDiv);
 }
 
 ageInput.addEventListener("change", readAgeInput);
