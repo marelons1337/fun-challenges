@@ -8,6 +8,7 @@ const rock = document.getElementById("rock")
 const paper = document.getElementById("paper")
 const scissors = document.getElementById("scissors")
 const rpsBox = document.getElementById("rps-body")
+const buttonsDropdown = document.getElementById("buttons-dropdown")
 // Date input
 
 var input;
@@ -103,6 +104,44 @@ function rpsFrontEnd(humanImageChoice, botImageChoice, finalMessage) {
     rpsBox.appendChild(humanDiv);
     rpsBox.appendChild(messageDiv);
     rpsBox.appendChild(botDiv);
+}
+
+function changeColor(choice) {
+    const randomColorsData = {
+        '0':'btn btn-primary',
+        '1':'btn btn-secondary',
+        '2':'btn btn-success',
+        '3':'btn btn-danger',
+        '4':'btn btn-warning',
+        '5':'btn btn-info',
+        '6':'btn btn-light',
+        '7':'btn btn-dark'
+    }
+    var buttons = document.querySelectorAll("button");
+    const buttonsClone = {};
+    for (let i = 0; i < buttons.length; i++) {
+        buttonsClone[i] = buttons[i].classList.value
+    }
+    console.log(buttonsClone);
+    
+    console.log(choice);
+    console.log(choice.value);
+    if (choice.value==='random') {   
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].className = randomColorsData[getRndInteger(0,7)];                
+        }
+    }
+    else if (choice.value==='red') {
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].className = randomColorsData[3];                
+        }
+    }
+    if (choice.value==='reset') {
+        for (let i = 0; i < buttons.length; i++) {
+            console.log(buttons[i]);
+            buttons[i].className = buttonsClone[i];                
+        }
+    }
 }
 
 ageInput.addEventListener("change", readAgeInput);
