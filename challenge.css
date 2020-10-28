@@ -35,10 +35,12 @@ html {
 }
 /* cats */
 #cats-container,
-#rps-body {
+#rps-body,
+#buttons-container {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+    margin-bottom: 50px;
 }
 .cat-image {
     width: 240px;
@@ -67,7 +69,7 @@ html {
     height: 200px;
 }
 .rps-element:hover {
-    box-shadow: 2px 2px 37px 22px rgba(22,161,9,1);
+    box-shadow: 2px 2px 37px 22px rgb(243, 6, 6);
     cursor: pointer;
 }
 #rps-score {

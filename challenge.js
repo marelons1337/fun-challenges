@@ -71,7 +71,7 @@ function decideWinner(yourChoice, botChoice) {
 
     return [yourScore, computerScore];
 }
-function finalMessage({yourScore, computerScore}) {
+function finalMessage({yourScore}) {
     if(yourScore === 0) {
         return {'message': 'You lost!', 'color': 'red'};
     } else if(yourScore === 0.5) {
