@@ -9,6 +9,7 @@ const paper = document.getElementById("paper")
 const scissors = document.getElementById("scissors")
 const rpsBox = document.getElementById("rps-body")
 const buttonsDropdown = document.getElementById("buttons-dropdown")
+var buttons = document.querySelectorAll("button");
 // Date input
 
 var input;
@@ -69,13 +70,13 @@ function decideWinner(yourChoice, botChoice) {
     };
     var yourScore = rpsDatabase[yourChoice][botChoice];
     var computerScore = rpsDatabase[botChoice][yourChoice];
-
+    
     return [yourScore, computerScore];
 }
-function finalMessage({yourScore}) {
+function finalMessage(yourScore) {
     if(yourScore === 0) {
         return {'message': 'You lost!', 'color': 'red'};
-    } else if(yourScore === 0.5) {
+    }else if(yourScore === 0.5) {
         return {'message': 'You tied!', 'color': 'yellow'}
     }
     else{
@@ -106,6 +107,12 @@ function rpsFrontEnd(humanImageChoice, botImageChoice, finalMessage) {
     rpsBox.appendChild(botDiv);
 }
 
+
+const buttonsClone = {};
+for (let i = 0; i < buttons.length; i++) {
+    buttonsClone[i] = buttons[i].classList.value
+}
+
 function changeColor(choice) {
     const randomColorsData = {
         '0':'btn btn-primary',
@@ -117,28 +124,18 @@ function changeColor(choice) {
         '6':'btn btn-light',
         '7':'btn btn-dark'
     }
-    var buttons = document.querySelectorAll("button");
-    const buttonsClone = {};
-    for (let i = 0; i < buttons.length; i++) {
-        buttonsClone[i] = buttons[i].classList.value
-    }
-    console.log(buttonsClone);
-    
-    console.log(choice);
-    console.log(choice.value);
-    if (choice.value==='random') {   
+    if (choice.valu ==='random') {   
         for (let i = 0; i < buttons.length; i++) {
             buttons[i].className = randomColorsData[getRndInteger(0,7)];                
         }
     }
-    else if (choice.value==='red') {
+    else if (choice.value ==='red') {
         for (let i = 0; i < buttons.length; i++) {
             buttons[i].className = randomColorsData[3];                
         }
     }
-    if (choice.value==='reset') {
+    if (choice.value ==='reset') {
         for (let i = 0; i < buttons.length; i++) {
-            console.log(buttons[i]);
             buttons[i].className = buttonsClone[i];                
         }
     }
